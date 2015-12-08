@@ -1,0 +1,20 @@
+		<h1>toExponential()</h1>
+	    <h2>Overview</h2>
+	    <p>This method is part of the Number Object prototype and can be called on any object that is a Number, it converts a number to be displayed as an exponent. An exponent is displayed with <code>e+#</code> with # representing the number of places to move a decimal point. Read more about exponential numbers here: <a href="https://en.wikipedia.org/wiki/Scientific_notation" target="_blank">https://en.wikipedia.org/wiki/Scientific_notation</a>.</p>
+	    <h2>Syntax</h2>
+	    <code>number.toExponential( [fractionDigits] );</code>
+	    <h3>Parameters</h3>
+	    <p>The <code>toExponential()</code> method takes one optional parameter called 'fractionDigits'. 'fractionDigits' is a whole number, specifying the number of digits after the decimal point to display before displaying the exponential.</p>
+	    <p>If 'fractionDigits' is not specified, then the number of digits will be the number need to represent the value uniquely.</p>
+	    <h2>Examples</h2>
+	    <p>These examples are taken from the Mozilla Developer Network.</p>
+	    <pre>var numObj = 77.1234;
+
+console.log(numObj.toExponential());  // logs 7.71234e+1
+console.log(numObj.toExponential(4)); // logs 7.7123e+1
+console.log(numObj.toExponential(2)); // logs 7.71e+1
+console.log(77.1234.toExponential()); // logs 7.71234e+1
+console.log(77 .toExponential());     // logs 7.7e+1</pre>
+		<h2>CodePen Examples</h2>
+		<p data-height="600" data-theme-id="0" data-slug-hash="MKgjvG" data-default-tab="result" data-user="bretteast" class='codepen'>See the Pen <a href='http://codepen.io/bretteast/pen/MKgjvG/'>MKgjvG</a> by Brett East (<a href='http://codepen.io/bretteast'>@bretteast</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+		<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
