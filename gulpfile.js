@@ -29,11 +29,11 @@ if (env === 'development'){
 	sassStyle = 'compact';
 }
 	
-jsSources = ['js/bootstrap.min.js'];
+jsSources = ['js/*.js'];
 sassSources = ['components/sass/style.scss'];
-htmlSources = [outputDir + '/*.html'];
+htmlSources = [outputDir + '/**/*.html'];
 jsonSources = [outputDir + '/js/*.json'];
-fontSources = [outputDir + 'fonts/*.*'];
+fontSources = [outputDir + '/fonts/*.*'];
 
 
 gulp.task('js', function(){
