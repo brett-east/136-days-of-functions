@@ -14,6 +14,7 @@ var env,
 	jsSources,
 	sassSources,
 	htmlSources,
+	pageSources,
 	jsonSources,
 	fontSources,
 	outputDir,
@@ -25,28 +26,27 @@ if (env === 'development'){
 	outputDir = 'builds/development/';
 	sassStyle = 'expanded';
 } else {
-	outputDir = 'builds/production/';
+	outputDir = '../136-days-of-functions-production/';
 	sassStyle = 'compact';
 }
 	
-jsSources = ['js/*.js'];
+jsSources = [outputDir + '/js/*.js'];
 sassSources = ['components/sass/style.scss'];
-htmlSources = [outputDir + '/**/*.html'];
+htmlSources = [outputDir + '/*.html'];
+pageSources = ['builds/development/pages/'];
 jsonSources = [outputDir + '/js/*.json'];
-fontSources = [outputDir + '/fonts/*.*'];
+fontSources = [outputDir + 'fonts/*.*'];
 
 
 gulp.task('js', function(){
-	gulp.src(jsSources)
-		.pipe(concat('script.js'))
-		.pipe(gulpif(env === 'production', uglify()))
-		.pipe(gulp.dest(outputDir + '/js'))
+	gulp.src('builds/development/js/*.js')
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir + 'js')))
 		.pipe(connect.reload())
 });
 
 gulp.task('font', function(){
-	gulp.src(fontSources)
-		.pipe(gulpif(env === 'production', gulp.dest(outputDir + '/fonts')))
+	gulp.src('builds/development/fonts/*.*')
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir + 'fonts')))
 		.pipe(connect.reload())
 });
 
@@ -66,6 +66,7 @@ gulp.task('watch', function(){
 	gulp.watch(jsSources, ['js']);
 	gulp.watch('components/sass/*.scss', ['compass']);
 	gulp.watch('builds/development/*.html', ['html']);
+	gulp.watch('builds/development/pages/**/*.html', ['pages']);
 	gulp.watch('builds/development/js/*.json', ['json']);
 	gulp.watch('builds/development/images/**/*.*', ['images']);
 });
@@ -74,6 +75,13 @@ gulp.task('html', function(){
 	gulp.src('builds/development/*.html')
 		.pipe(gulpif(env === 'production', minifyHTML()))
 		.pipe(gulpif(env === 'production', gulp.dest(outputDir)))
+		.pipe(connect.reload())
+});
+
+gulp.task('pages', function(){
+  gulp.src('builds/development/pages/**')
+		.pipe(gulpif(env === 'production', minifyHTML()))
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir + 'pages')))
 		.pipe(connect.reload())
 });
 
@@ -91,7 +99,7 @@ gulp.task('images', function(){
 gulp.task('json', function(){
 	gulp.src('builds/development/js/*.json')
 		.pipe(gulpif(env === 'production', jsonminify()))
-		.pipe(gulpif(env === 'production', gulp.dest('builds/production/js')))
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir + 'js')))
 		.pipe(connect.reload())
 });
 
@@ -102,4 +110,4 @@ gulp.task('connect', function(){
 	})
 });
 
-gulp.task('default', ['html', 'json', 'js', 'compass', 'connect', 'images', 'watch']);
+gulp.task('default', ['html', 'pages', 'json', 'js', 'font', 'compass', 'connect', 'images', 'watch']);
